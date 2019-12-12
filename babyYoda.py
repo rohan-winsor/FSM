@@ -36,28 +36,32 @@ class BabyYoda(Fsm):
     def sleeping(self):
         if self.capactiy + 20 <= 100:
             self.capactiy += 20
-
-    def printState(self):
-        print(self.state)
+    def printState(self,list1):
+        # print(list1)
+        print(list1[1])
+        # pass
 
 
 if __name__ == "__main__":
-    all_states = {1: STATE.EAT, 2: STATE.SLEEP, 3: STATE.FORCE, 4: STATE.IDLE}
+    all_states = {1: [STATE.EAT,"Eating...."], 2:[STATE.SLEEP,"Sleeping..."], 3: [STATE.FORCE,"Using Force..."], 4: [STATE.IDLE,"Cooing....."]}
     babyyoda = BabyYoda()
     count = 0
     while babyyoda.capactiy >= 0:
-        print(babyyoda.capactiy)
-        babyyoda.printState()
-        s = randint(1,3)
-        babyyoda.set_state(all_states[s])
-        if babyyoda.get_state() == STATE.FORCE:
+        s = randint(1,4)
+        babyyoda.set_state(all_states[s][0])
+        if babyyoda.get_state() == all_states[3][0]:
             babyyoda.useForce()
-            babyyoda.printState()
-        elif babyyoda.get_state() == STATE.SLEEP:
+            babyyoda.printState(all_states[3])
+        elif babyyoda.get_state() == all_states[2][0]:
             babyyoda.sleeping()
-            babyyoda.printState()
-        elif babyyoda.get_state() == STATE.EAT:
+            babyyoda.printState((all_states[2]))
+        elif babyyoda.get_state() == all_states[1][0]:
             babyyoda.eating()
-            babyyoda.printState()
+            babyyoda.printState((all_states[1]))
+        elif babyyoda.get_state() == all_states[4][0]:
+            babyyoda.eating()
+            babyyoda.printState((all_states[4]))
+        else:
+            break
         count += 1
     print(count)
